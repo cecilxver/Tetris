@@ -1,8 +1,6 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Main {
@@ -11,8 +9,10 @@ public class Main {
     static int[][] board = new int[H][W];
     static int[][] piece;
     static int score = 0;
-    static String ruta="\"Logs/\"+String.valueOf(LocalDateTime.now())+\" partida.txt\"";
-    static File puntuacion =new File(ruta);
+    static String ruta = "Logs/" +
+            LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss")) +
+            "partida.txt";
+     static File puntuacion =new File(ruta);
 
 
     static Random rnd = new Random();
@@ -30,13 +30,16 @@ public class Main {
     public Main() throws IOException {
     }
 
-    public static void main(String[] args) {
-        ruta=ruta.replaceAll(":","_");
-        ruta=ruta.replaceAll(".","_");
+    public static void main(String[] args) throws IOException {
 
         Scanner sc = new Scanner(System.in);
         piece = spawn();
-        FileWriter fw;
+        puntuacion.createNewFile();
+        FileWriter fw = new FileWriter(puntuacion);
+        BufferedWriter bw=new BufferedWriter(fw);
+        FileReader fr=new FileReader(puntuacion);
+        BufferedReader br=new BufferedReader(fr);
+        bw.write("Partida empezada "+LocalDateTime.now());
 
 
         while (true) {
@@ -50,6 +53,7 @@ public class Main {
                 case "s" -> move(1, 0);
                 case "r" -> rotate();
                 case "" -> { while (move(1, 0)); } // hard drop
+
             }
 
             // Gravedad: baja una fila por turno pase lo que pase
@@ -60,10 +64,16 @@ public class Main {
                 if (collides(piece)) {
                     draw();
                     System.out.println("GAME OVER - Puntos: " + score);
+                    bw.write("Partida terminada: "+LocalDateTime.now());
+
                     break;
                 }
             }
         }
+        fr.close();
+        br.close();
+        fw.close();
+        bw.close();
     }
 
     static int[][] spawn() {
