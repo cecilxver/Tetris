@@ -12,7 +12,8 @@ public class Main {
     static String ruta = "Logs/" +
             LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss")) +
             "partida.txt";
-     static File puntuacion =new File(ruta);
+    static File puntuacion =new File(ruta);
+    static PrintWriter pw;
 
 
     static Random rnd = new Random();
@@ -33,13 +34,10 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         Scanner sc = new Scanner(System.in);
-        piece = spawn();
         puntuacion.createNewFile();
-        FileWriter fw = new FileWriter(puntuacion);
-        BufferedWriter bw=new BufferedWriter(fw);
-        FileReader fr=new FileReader(puntuacion);
-        BufferedReader br=new BufferedReader(fr);
-        bw.write("Partida empezada "+LocalDateTime.now());
+        pw = new PrintWriter(new FileWriter(puntuacion, true));
+        logear(pw,"Partida empezada ");
+        piece = spawn();
 
 
         while (true) {
@@ -60,29 +58,56 @@ public class Main {
             if (!move(1, 0)) {
                 place();
                 score += clearLines() * 100;
+                logear(pw,"Línea eliminada. Puntuación final: "+score);
                 piece = spawn();
                 if (collides(piece)) {
                     draw();
                     System.out.println("GAME OVER - Puntos: " + score);
-                    bw.write("Partida terminada: "+LocalDateTime.now());
+                    logear(pw,"GAME OVER. Puntuación final: "+score);
 
                     break;
                 }
             }
         }
-        fr.close();
-        br.close();
-        fw.close();
-        bw.close();
+        pw.flush();
+        pw.close();
+
+
     }
 
-    static int[][] spawn() {
-        int[][] shape = SHAPES[rnd.nextInt(SHAPES.length)];
+    static int[][] spawn() throws FileNotFoundException {
+        int indice= rnd.nextInt(SHAPES.length);
+        int[][] shape = SHAPES[indice];
         int[][] p = new int[4][2];
         for (int i = 0; i < 4; i++) {
             p[i][0] = shape[i][0];
             p[i][1] = shape[i][1] + W / 2 - 1;
         }
+
+    switch (indice){
+        case 0:
+            logear(pw,"La pieza es: O");
+            break;
+        case 1:
+            logear(pw,"La pieza es: I");
+            break;
+        case 2:
+            logear(pw,"La pieza es: L");
+            break;
+        case 3:
+            logear(pw,"La pieza es: J");
+            break;
+        case 4:
+            logear(pw,"La pieza es: S");
+            break;
+        case 5:
+            logear(pw,"La pieza es: Z");
+            break;
+        case 6:
+            logear(pw,"La pieza es: T");
+            break;
+    }
+
         return p;
     }
 
@@ -170,5 +195,12 @@ public class Main {
             System.out.println("│");
         }
         System.out.println("└" + "──".repeat(W) + "┘");
+    }
+    static void logear(PrintWriter pw, String msj) throws FileNotFoundException {
+        //TODO
+        String hora = "[" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) + "]";
+        pw.println(hora + " " + msj);
+        pw.flush();
+
     }
 }
