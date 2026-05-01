@@ -1,0 +1,46 @@
+[18:46:02] Partida empezada 
+[18:46:02] La pieza es: O
+[18:46:05] Acción: LEFT -> Ejecutado
+[18:46:05] Acción: LEFT -> Ejecutado
+[18:46:05] Acción: LEFT -> Ejecutado
+[18:46:05] Acción: LEFT -> Ejecutado
+[18:46:05] Movimiento bloqueado
+[18:46:05] Acción: LEFT -> Bloqueado
+[18:46:05] Movimiento bloqueado
+[18:46:05] Acción: LEFT -> Bloqueado
+[18:46:06] Movimiento bloqueado
+[18:46:06] Acción: HARD DROP
+[18:46:06] Movimiento bloqueado
+[18:46:06] La pieza es: Z
+[18:46:06] Acción: LEFT -> Ejecutado
+[18:46:06] Acción: LEFT -> Ejecutado
+[18:46:06] Acción: LEFT -> Ejecutado
+[18:46:06] Acción: LEFT -> Ejecutado
+[18:46:07] Movimiento bloqueado
+[18:46:07] Acción: LEFT -> Bloqueado
+[18:46:07] Movimiento bloqueado
+[18:46:07] Acción: HARD DROP
+[18:46:07] Movimiento bloqueado
+[18:46:07] La pieza es: T
+[18:46:07] Acción: LEFT -> Ejecutado
+[18:46:07] Acción: LEFT -> Ejecutado
+[18:46:07] Acción: LEFT -> Ejecutado
+[18:46:07] Acción: LEFT -> Ejecutado
+[18:46:08] Movimiento bloqueado
+[18:46:08] Acción: LEFT -> Bloqueado
+[18:46:08] Movimiento bloqueado
+[18:46:08] La pieza es: S
+[18:46:08] Acción: LEFT -> Ejecutado
+[18:46:08] Acción: LEFT -> Ejecutado
+[18:46:08] Movimiento bloqueado
+[18:46:08] La pieza es: S
+[18:46:08] Movimiento bloqueado
+[18:46:08] Acción: LEFT -> Bloqueado
+[18:46:08] Movimiento bloqueado
+[18:46:08] Acción: HARD DROP
+[18:46:08] Movimiento bloqueado
+[18:46:08] La pieza es: T
+[18:46:09] Acción: LEFT -> Ejecutado
+[18:46:09] Movimiento bloqueado
+[18:46:09] La pieza es: S
+[18:46:09] GAME OVER. Puntuación final: 0

@@ -46,19 +46,27 @@ public class Main {
             String cmd = sc.nextLine().trim().toLowerCase();
 
             switch (cmd) {
-                case "a" -> move(0, -1);
-                case "d" -> move(0, 1);
-                case "s" -> move(1, 0);
-                case "r" -> rotate();
-                case "" -> { while (move(1, 0)); } // hard drop
-
+                case "a" -> {
+                    if (move(0, -1)) logear(pw, "Acción: LEFT -> Ejecutado");
+                    else logear(pw, "Acción: LEFT -> Bloqueado");
+                }
+                case "d" -> {
+                    if (move(0, 1)) logear(pw, "Acción: RIGHT -> Ejecutado");
+                    else logear(pw, "Acción: RIGHT -> Bloqueado");
+                }
+                case "s" -> {
+                    if (move(1, 0)) logear(pw, "Acción: DOWN -> Ejecutado");
+                    else logear(pw, "Acción: DOWN -> Bloqueado");
+                }
+                case "r" -> { rotate(); logear(pw, "Acción: ROTAR"); }
+                case ""  -> { while (move(1, 0)); logear(pw, "Acción: HARD DROP"); }
             }
 
             // Gravedad: baja una fila por turno pase lo que pase
             if (!move(1, 0)) {
                 place();
                 score += clearLines() * 100;
-                logear(pw,"Línea eliminada. Puntuación final: "+score);
+
                 piece = spawn();
                 if (collides(piece)) {
                     draw();
@@ -111,13 +119,16 @@ public class Main {
         return p;
     }
 
-    static boolean move(int dr, int dc) {
+    static boolean move(int dr, int dc) throws FileNotFoundException {
         int[][] next = new int[4][2];
         for (int i = 0; i < 4; i++) {
             next[i][0] = piece[i][0] + dr;
             next[i][1] = piece[i][1] + dc;
         }
-        if (collides(next)) return false;
+        if (collides(next)){
+            logear(pw,"Movimiento bloqueado");
+            return false;
+        }
         piece = next;
         return true;
     }
@@ -141,6 +152,7 @@ public class Main {
         for (int i = 0; i < 4; i++) {
             rotated[i][0] = norm[i][1] + minR;
             rotated[i][1] = maxNormR - norm[i][0] + minC;
+
         }
 
         if (!collides(rotated)) piece = rotated; // solo rota si cabe
@@ -158,7 +170,7 @@ public class Main {
         for (int[] c : piece) board[c[0]][c[1]] = 1;
     }
 
-    static int clearLines() {
+    static int clearLines() throws FileNotFoundException {
         int lines = 0;
         for (int r = H - 1; r >= 0; r--) {
             boolean full = true;
@@ -168,7 +180,9 @@ public class Main {
                 board[0] = new int[W];
                 lines++;
                 r++; // revisitar la misma fila (ahora tiene el contenido de la anterior)
+                logear(pw,"Línea eliminada. Puntuación: "+score);
             }
+
         }
         return lines;
     }
